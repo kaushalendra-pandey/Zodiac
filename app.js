@@ -5,7 +5,12 @@ const app  = express()
 const bodyParser = require("body-parser")
 const cookieParser = require("cookie-parser")
 const cors = require("cors")
+
+//routes:
 const authRoutes = require("./routes/auth")
+const userRoutes = require("./routes/user")
+const categoryRoutes = require('./routes/category')
+const productRoutes = require('./routes/product')
 
 const PORT = process.env.PORT || 8000   
 
@@ -29,6 +34,9 @@ app.use(cookieParser())
 
 // routes
 app.use('/api',authRoutes)
+app.use('/api',userRoutes)
+app.use('/api',categoryRoutes)
+app.use('/api',productRoutes)
 
 
 app.listen(8000,(req,res)=>{
