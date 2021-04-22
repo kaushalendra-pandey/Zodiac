@@ -42,10 +42,17 @@ const signout = (req,res) => {
 }
 
 const signup = async (req,res) => {
+    const {email} = req.body
     const errors = validationResult(req)
     if(!errors.isEmpty()){
         return res.status(422).json({error:errors.array()[0].msg})
     }
+
+    const alreadyExist = await User.findOne({email})
+    if(alreadyExist){
+        return res.status(422).json({error:"User already exist..."})
+    }
+
     try {
         const user = new User(req.body)
         await user.save()
