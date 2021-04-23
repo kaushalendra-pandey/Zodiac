@@ -59,15 +59,16 @@ const createProduct = (req,res) => {
 
 const getAllProducts = (req,res) => {
     let limit = req.query.limit ? req.query.limit : 8
-    let sortBy = req.query.sortBy ? req.query.sortBy : ''
+    let sortBy = req.query.sortBy ? req.query.sortBy : 'price'
 
-    Product.find()
+    Product.find() 
     .populate("category")
     .select("-photo")
     .sort([[sortBy,"asc"]])
     .limit(limit)
     .exec((err,products)=>{
         if(err || !products){
+            console.log(err);
             res.status(400).json({error:"No product exist!!!"})
         }
         res.json(products)

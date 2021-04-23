@@ -25,7 +25,7 @@ const signin = async (req,res) => {
         res.cookie("token",token,{expire: new Date() + 9999})
 
         const {_id,name,role} = user
-        res.json({message:"User is logged in successfully",user:{id:_id,name,email,role}})
+        res.json({message:"User is logged in successfully",user:{id:_id,name,email,role},token})
 
     } catch (error) {
         console.log(error);

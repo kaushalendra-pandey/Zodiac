@@ -11,7 +11,7 @@ const getCategoryById = (req,res,next,id) => {
 }
 
 const createCategory = (req,res) => {
-    const {name} = req.body
+    const {name} = req.body 
     if(!name || name.length < 5){
         return res.status(400).json({error:"Invalid name for the category!!!"})
     }
@@ -33,7 +33,7 @@ const getAllCategories = (req,res) => {
         if(err || !thisCategory){
             return res.status(400).json({error:"No category exist!!!"})
         }
-        res.json(thisCategory)
+        res.json({categories:thisCategory})
     })
     
 
