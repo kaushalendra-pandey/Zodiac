@@ -2,7 +2,8 @@ const Category = require("../models/category")
 
 const getCategoryById = (req,res,next,id) => {
     Category.findById(id).exec((err,category)=>{
-        if(err || !category){
+        if(err){
+            console.log(err);
             return res.status(400).json({error:"No such category exist!!!"})
         }
         req.category = category
@@ -41,15 +42,17 @@ const getAllCategories = (req,res) => {
 
 const updateCategory = (req,res) => {
     const category = req.category
+    console.log(category);
+    console.log(req.body);
     if(!req.body.name || req.body.name.length < 5){
         return res.status(400).json({error:"Invalid category name"})
     }
     category.name = req.body.name
     category.save((err,thisCategory)=>{
         if(err){
-            return res.status(400).json({error:"No such category exist!!"})
+            return res.status(400).json({error:"Unable to update category!!"})
         }
-        res.json(thisCategory)
+        res.json({category:thisCategory})
     })
 }
 
@@ -59,7 +62,7 @@ const removeCategory = (req,res) => {
         if(err){
             res.status(400).json({error:"Unable to delete category!"})
         }
-        res.json({message:"Successfully deleted category!!"})
+        res.json({category:thisCategory})
     })
 }
 

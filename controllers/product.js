@@ -128,6 +128,15 @@ const deleteProduct = (req,res) => {
     })
 }
 
+const photo = (req,res,next) => {
+    if(req.product.photo.data){
+        res.set("Content-type",req.product.photo.contentType)
+        return res.send(req.product.photo.data)
+    }
+    next()
+}
+
+
 const getAllUniqueCategories = (req,res) => {
     Product.distinct("categories",(err,categories)=>{
         if(err){
@@ -165,5 +174,6 @@ module.exports = {getProductById,
     updateProduct,
     getAllProducts,
     updateStock,
+    photo,
     getAllUniqueCategories
 }
