@@ -43,6 +43,6 @@ app.use('/api',productRoutes)
 app.use('/api',orderRoutes)
 app.use("/api",stripeRoutes)
 
-app.listen(8000,(req,res)=>{
+app.listen(process.env.PORT || 8000,(req,res)=>{
     console.log(`app is running at ${PORT}`);
 })
